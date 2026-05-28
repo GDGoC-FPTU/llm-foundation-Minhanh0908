@@ -26,10 +26,10 @@ Bạn sẽ thấy output so sánh phản hồi của GPT-4o và GPT-4o-mini.
 Gọi `call_openai` với các giá trị temperature 0.0, 0.5, 1.0 và 1.5 sử dụng prompt **"Hãy kể cho tôi một sự thật thú vị về Việt Nam."**
 
 **Bạn nhận thấy quy luật gì qua bốn phản hồi?** (2–3 câu)
-> *Câu trả lời của bạn*
+Khi temperature thấp (0.0), mô hình tạo ra câu trả lời rất ổn định, ngắn gọn và gần như giống nhau mỗi lần chạy. Khi tăng temperature lên 0.5 và 1.0, câu trả lời trở nên đa dạng và tự nhiên hơn. Ở mức 1.5, mô hình thường sáng tạo hơn nhưng đôi khi thêm thông tin lan man hoặc ít liên quan hơn so với prompt ban đầu.
 
 **Bạn sẽ đặt temperature bao nhiêu cho chatbot hỗ trợ khách hàng, và tại sao?**
-> *Câu trả lời của bạn*
+Temperature khoảng 0.2–0.4 cho chatbot hỗ trợ khách hàng vì mức này giúp câu trả lời ổn định, nhất quán và hạn chế việc mô hình sinh ra nội dung không chính xác. Chatbot hỗ trợ cần ưu tiên độ tin cậy hơn là tính sáng tạo.
 
 ---
 
@@ -37,16 +37,35 @@ Gọi `call_openai` với các giá trị temperature 0.0, 0.5, 1.0 và 1.5 sử
 Xem xét kịch bản: 10.000 người dùng hoạt động mỗi ngày, mỗi người thực hiện 3 lần gọi API, mỗi lần trung bình ~350 token.
 
 **Ước tính xem GPT-4o đắt hơn GPT-4o-mini bao nhiêu lần cho workload này:**
-> *Câu trả lời của bạn*
+Số lượng token mỗi ngày:
+
+10.000 người dùng
+3 request/người
+350 token/request
+
+Tổng token/ngày:
+
+10.000 × 3 × 350 = 10.500.000 token
+
+Chi phí ước tính:
+
+GPT-4o:
+Input: $5 / 1M token
+Output: $20 / 1M token
+GPT-4o-mini:
+Input: $0.15 / 1M token
+Output: $0.60 / 1M token
+
+GPT-4o có chi phí cao hơn khoảng 33 lần so với GPT-4o-mini cho cùng workload.
 
 **Mô tả một trường hợp mà chi phí cao hơn của GPT-4o là xứng đáng, và một trường hợp GPT-4o-mini là lựa chọn tốt hơn:**
-> *Câu trả lời của bạn*
+GPT-4o phù hợp với các tác vụ cần độ chính xác và suy luận cao như phân tích pháp luật, hỗ trợ y tế vì chất lượng phản hồi tốt hơn đáng kể. Ngược lại, GPT-4o-mini phù hợp cho chatbot FAQ, hỗ trợ khách hàng cơ bản hoặc các ứng dụng cần phục vụ lượng người dùng lớn với chi phí thấp.
 
 ---
 
 ### Bài tập 2.3 — Trải Nghiệm Người Dùng với Streaming
 **Streaming quan trọng nhất trong trường hợp nào, và khi nào thì non-streaming lại phù hợp hơn?** (1 đoạn văn)
-> *Câu trả lời của bạn*
+Streaming đặc biệt quan trọng trong các ứng dụng chatbot thời gian thực vì người dùng có thể thấy phản hồi xuất hiện ngay lập tức thay vì phải chờ toàn bộ câu trả lời hoàn thành. Điều này giúp giảm cảm giác chờ đợi và cải thiện trải nghiệm người dùng, đặc biệt với các phản hồi dài hoặc các mô hình lớn có độ trễ cao. Tuy nhiên, non-streaming phù hợp hơn trong các trường hợp cần xử lý hoàn chỉnh trước khi hiển thị, chẳng hạn như sinh báo cáo, trả về JSON có cấu trúc hoặc các tác vụ yêu cầu kiểm tra toàn bộ nội dung trước khi gửi cho người dùng.
 
 
 ## Danh Sách Kiểm Tra Nộp Bài
